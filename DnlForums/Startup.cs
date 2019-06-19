@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using DnlForumsData;
 using DnlForums.Services;
 using DnlForumsData.Models;
+using DnlForumsService;
 
 namespace DnlForums
 {
@@ -31,6 +32,8 @@ namespace DnlForums
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            //injecting services from data access layer and service layer
+            services.AddScoped<IForum, ForumService>();
 
             services.AddMvc();
         }

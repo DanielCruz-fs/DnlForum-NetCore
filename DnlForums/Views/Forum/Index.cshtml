@@ -1,0 +1,17 @@
+﻿@model DnlForums.Models.Forum.ForumIndexModel
+
+<h1>Forums</h1>
+
+<table>
+    <tbody>
+        @foreach (var forum in Model.ForumList)
+        {
+           <tr>
+               <td>@forum.Title</td>
+           </tr> 
+           <tr>
+               <td>@forum.Description</td>
+           </tr> 
+        }
+    </tbody>
+</table>
