@@ -34,7 +34,7 @@ namespace DnlForums
             services.AddTransient<IEmailSender, EmailSender>();
             //injecting services from data access layer and service layer
             services.AddScoped<IForum, ForumService>();
-
+            services.AddScoped<IPost, PostService>();
             services.AddMvc();
         }
 
