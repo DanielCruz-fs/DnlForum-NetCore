@@ -40,7 +40,7 @@ namespace DnlForums.Controllers
         public IActionResult Topic(int id)
         {
             var forum = this.forumService.GetById(id);
-            var posts = this.postService.GetPostsByForum(id);
+            var posts = forum.Posts;
 
             var postListing = posts.Select(post => new PostListingModel()
             {
@@ -52,12 +52,25 @@ namespace DnlForums.Controllers
                 RepliesCount = post.Replies.Count(),
                 Forum = this.BuildForumListing(post)
             });
-            return View();
-        }
 
+            var model = new ForumTopicModel()
+            {
+                Posts = postListing,
+                Forum = this.BuildForumListing(forum)
+            };
+
+            return View(model);
+        }
+        
+        //this private method has an overload to accept two different entities
         private ForumListingModel BuildForumListing(Post post)
         {
             var forum = post.Forum;
+            return this.BuildForumListing(forum);
+        }
+
+        private ForumListingModel BuildForumListing(Forum forum)
+        {
             return new ForumListingModel()
             {
                 Id = forum.Id,
