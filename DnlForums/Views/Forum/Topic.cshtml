@@ -1,6 +1,10 @@
 ﻿@model DnlForums.Models.Forum.ForumTopicModel
 
 <h1>Welcome to the @Model.Forum.Title forum</h1>
+
+<span id="headingBtn"><a asp-controller="Post" asp-action="Create" asp-route-id="@Model.Forum.Id" class="btn btn-newPost">Create Post</a></span>
+
+
 @if (Model.Posts.Any())
 {
     <table class="table table-bordered table-hover">
@@ -21,7 +25,8 @@
         </tbody>
     </table>
 }
-else {
+else
+{
     <div class="noPosts">
         <h3>
             It looks like there are no @Model.Forum.Title posts yet. <br />

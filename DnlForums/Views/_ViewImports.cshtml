@@ -3,4 +3,8 @@
 @using DnlForums.Models
 @using DnlForums.Models.AccountViewModels
 @using DnlForums.Models.ManageViewModels
+
+@* fix for login when you move ApplicationUser.cs into data access layer *@
+@using DnlForumsData.Models
+
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
