@@ -78,7 +78,7 @@ namespace DnlForums.Controllers
             var post = this.BuildPost(model, user);
             await this.postService.Add(post);
 
-            return RedirectToAction("Index", "Post", post.Id);
+            return RedirectToAction("Index", "Post", new { id = post.Id });
         }
 
         private Post BuildPost(NewPostModel model, ApplicationUser user)
