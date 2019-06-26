@@ -15,7 +15,29 @@
      while the background image is loading */
     background-color: #464646;
 }
+.postHeading {
+    color: white;
+    font-size: 1.1em;
+    font-family: 'Roboto';
+    padding: 16px 0 16px 0;
+}
 
+.serctionInfo {
+    height: 400px;
+    background-color: white;
+}
+
+.frontPageSplash {
+    background-image: url("https://images.unsplash.com/photo-1526649661456-89c7ed4d00b8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1471&q=80");
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.frontPageLearn {
+    font-family: 'Roboto';
+    padding: 12px 0 0 32px;
+    height: 360px;
+}
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
