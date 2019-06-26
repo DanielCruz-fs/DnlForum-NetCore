@@ -33,11 +33,11 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand navLogo" asp-controller="Home" asp-action="Index"></a>
+                <a class="navbar-brand navLogo active" asp-controller="Home" asp-action="Index">Home</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a asp-controller="Forum" asp-action="Index">Forums</a></li>
+                    <li><a asp-controller="Forum" asp-action="Index">Forums</a></li>
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <li class="dropdown">

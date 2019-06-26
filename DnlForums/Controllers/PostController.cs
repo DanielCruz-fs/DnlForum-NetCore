@@ -37,9 +37,17 @@ namespace DnlForums.Controllers
                 AuthorRating = post.User.Rating,
                 Created = post.Created,
                 PostContent = post.Content,
-                Replies = replies
+                Replies = replies,
+                ForumName = post.Forum.Title,
+                ForumId = post.Forum.Id,
+                IsAuthorAdmin = this.IsAuthorAdmin(post.User)
             };
             return View(model);
+        }
+
+        private bool IsAuthorAdmin(ApplicationUser user)
+        {
+            return this.userManager.GetRolesAsync(user).Result.Contains("Admin");
         }
 
         private IEnumerable<PostReplyModel> BuildPostReplies(IEnumerable<PostReply> replies)
@@ -52,7 +60,8 @@ namespace DnlForums.Controllers
                 AuthorImageUrl = reply.User.ProfileUrl,
                 AuthorRating = reply.User.Rating,
                 Created = reply.Created,
-                ReplyContent = reply.Content
+                ReplyContent = reply.Content,
+                IsAuthorAdmin = this.IsAuthorAdmin(reply.User)
             });
         }
 
