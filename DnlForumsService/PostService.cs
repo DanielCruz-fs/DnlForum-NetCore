@@ -50,9 +50,12 @@ namespace DnlForumsService
                                      .First();
         }
 
-        public IEnumerable<Post> GetFilteredPosts(string searchQuery)
+        public IEnumerable<Post> GetFilteredPosts(Forum forum, string searchQuery)
         {
-            throw new NotImplementedException();
+            var query = searchQuery.ToLower();
+            return String.IsNullOrEmpty(searchQuery) ? forum.Posts
+                                                     : forum.Posts.Where(post => post.Title.ToLower().Contains(query)
+                                                     || post.Content.ToLower().Contains(query));
         }
 
         public IEnumerable<Post> GetLatestPost(int n)

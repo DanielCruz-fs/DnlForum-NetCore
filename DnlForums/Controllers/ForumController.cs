@@ -37,10 +37,18 @@ namespace DnlForums.Controllers
             return View(model);
         }
 
-        public IActionResult Topic(int id)
+        public IActionResult Topic(int id, string searchQuery)
         {
             var forum = this.forumService.GetById(id);
-            var posts = forum.Posts;
+            var posts = new List<Post>();
+            if (!String.IsNullOrEmpty(searchQuery))
+            {
+                posts = this.postService.GetFilteredPosts(forum, searchQuery).ToList();
+            }
+            else
+            {
+                posts = forum.Posts.ToList();
+            }
 
             var postListing = posts.Select(post => new PostListingModel()
             {
@@ -79,6 +87,12 @@ namespace DnlForums.Controllers
                 Description = forum.Description,
                 ImageUrl = forum.ImageUrl
             };
+        }
+
+        [HttpPost]
+        public IActionResult Search(int id, string searchQuery)
+        {
+            return RedirectToAction("Topic", new { id, searchQuery });
         }
     }
 }
