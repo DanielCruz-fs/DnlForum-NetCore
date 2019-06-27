@@ -58,6 +58,13 @@ namespace DnlForumsService
                                                      || post.Content.ToLower().Contains(query));
         }
 
+        public IEnumerable<Post> GetFilteredPosts(string searchQuery)
+        {
+            var query = searchQuery.ToLower();
+            return this.GetAll().Where(post => post.Title.ToLower().Contains(query)
+                                                     || post.Content.ToLower().Contains(query));
+        }
+
         public IEnumerable<Post> GetLatestPost(int n)
         {
             return this.GetAll().OrderByDescending(post => post.Created).Take(n);
