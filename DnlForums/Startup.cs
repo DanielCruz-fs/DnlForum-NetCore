@@ -35,11 +35,14 @@ namespace DnlForums
             //injecting services from data access layer and service layer
             services.AddScoped<IForum, ForumService>();
             services.AddScoped<IPost, PostService>();
+            services.AddScoped<IApplicationUser, ApplicationUserService>();
+
+            services.AddTransient<DataSeeder>();
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DataSeeder dataSeeder)
         {
             if (env.IsDevelopment())
             {
@@ -51,6 +54,8 @@ namespace DnlForums
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            dataSeeder.SeedSuperUser();
 
             app.UseStaticFiles();
 

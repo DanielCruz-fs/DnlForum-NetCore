@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DnlForumsService
 {
-    class ApplicationUserService : IApplicationUser
+    public class ApplicationUserService : IApplicationUser
     {
         private readonly ApplicationDbContext context;
 

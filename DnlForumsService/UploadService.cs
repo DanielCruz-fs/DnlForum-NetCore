@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DnlForumsService
 {
-    class UploadService
+    public class UploadService
     {
     }
 }
