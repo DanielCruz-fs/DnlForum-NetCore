@@ -35,6 +35,7 @@ namespace DnlForums
             //injecting services from data access layer and service layer
             services.AddScoped<IForum, ForumService>();
             services.AddScoped<IPost, PostService>();
+            services.AddScoped<IUpload, UploadService>();
             services.AddScoped<IApplicationUser, ApplicationUserService>();
 
             services.AddTransient<DataSeeder>();
