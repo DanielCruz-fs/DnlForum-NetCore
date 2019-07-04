@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DnlForums.Models.ApplicationUser;
 using DnlForumsData;
 using DnlForumsData.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,6 +42,25 @@ namespace DnlForums.Controllers
             };
 
             return View(model);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> UploadProfileImage(IFormFile file)
+        {
+            var userId = this.userManager.GetUserId(User);
+
+            var userImageUrl = this.userService.GetById(userId).ProfileUrl;
+            if (!String.IsNullOrEmpty(userImageUrl))
+            {
+                this.uploadService.DeleteImageFromFile(userImageUrl);
+            }
+            if (file == null || file.Length == 0)
+                return Content("file not selected");
+
+            var imageUrl =  this.uploadService.UploadImageProfle(file);
+            await this.userService.SetProfileImage(userId, imageUrl);
+
+            return RedirectToAction("Detail", new { id = userId });
         }
     }
 }
