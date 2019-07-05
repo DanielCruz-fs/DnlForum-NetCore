@@ -12,6 +12,6 @@ namespace DnlForumsData
         IEnumerable<ApplicationUser> GetAll();
 
         Task SetProfileImage(string id, string imageUrl);
-        Task IncrementRating(string id, Type type);
+        Task UpdateUserRating(string id, Type type);
     }
 }

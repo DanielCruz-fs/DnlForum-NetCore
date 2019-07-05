@@ -94,5 +94,34 @@ namespace DnlForums.Controllers
         {
             return RedirectToAction("Topic", new { id, searchQuery });
         }
+
+        public IActionResult Create()
+        {
+            var model = new AddForumModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddForum(AddForumModel model)
+        {
+            var imageDefaultUri = "/images";
+
+            if (model.ImageUpload != null)
+            {
+                //upload image file
+                
+            }
+
+            var forum = new Forum()
+            {
+                Title = model.Title,
+                Description = model.Description,
+                Created = DateTime.Now,
+                ImageUrl = imageDefaultUri
+            };
+
+            await this.forumService.Create(forum);
+            return RedirectToAction("Index", "Forum");
+        }
     }
 }

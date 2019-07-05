@@ -27,9 +27,22 @@ namespace DnlForumsService
             return this.GetAll().FirstOrDefault(user => user.Id == id);
         }
 
-        public Task IncrementRating(string id, Type type)
+        public async Task UpdateUserRating(string id, Type type)
         {
-            throw new NotImplementedException();
+            var user = this.GetById(id);
+            user.Rating = this.CalculateUserRating(type, user.Rating);
+            await this.context.SaveChangesAsync();
+        }
+
+        private int CalculateUserRating(Type type, int userRating)
+        {
+            var inc = 0;
+            if (type == typeof(Post))
+                inc = 1;
+            if (type == typeof(PostReply))
+                inc = 3;
+
+            return userRating + inc;
         }
 
         public async Task SetProfileImage(string id, string imageUrl)

@@ -14,11 +14,14 @@ namespace DnlForums.Controllers
     {
         private readonly IPost postService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IApplicationUser userService;
 
-        public ReplyController(IPost postService, UserManager<ApplicationUser> userManager)
+        public ReplyController(IPost postService, UserManager<ApplicationUser> userManager,
+                               IApplicationUser userService)
         {
             this.postService = postService;
             this.userManager = userManager;
+            this.userService = userService;
         }
 
         public async Task<IActionResult> Create(int id)
@@ -55,6 +58,9 @@ namespace DnlForums.Controllers
 
             var reply = this.BuilderReply(model, user);
             await this.postService.AddReply(reply);
+
+            //User rating management's implementation
+            await this.userService.UpdateUserRating(userId, typeof(PostReply));            
 
             return RedirectToAction("Index", "Post", new { id = model.PostId });
         }

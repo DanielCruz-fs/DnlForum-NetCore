@@ -16,12 +16,15 @@ namespace DnlForums.Controllers
         private readonly IPost postService;
         private readonly IForum forumService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IApplicationUser userService;
 
-        public PostController(IPost postService, IForum forumService, UserManager<ApplicationUser> userManager) 
+        public PostController(IPost postService, IForum forumService, UserManager<ApplicationUser> userManager,
+                              IApplicationUser userService) 
         {
             this.postService = postService;
             this.forumService = forumService;
             this.userManager = userManager;
+            this.userService = userService;
         }
         public IActionResult Index(int id)
         {
@@ -86,6 +89,9 @@ namespace DnlForums.Controllers
 
             var post = this.BuildPost(model, user);
             await this.postService.Add(post);
+
+            //User rating management's implementation
+            await this.userService.UpdateUserRating(userId, typeof(Post));            
 
             return RedirectToAction("Index", "Post", new { id = post.Id });
         }
