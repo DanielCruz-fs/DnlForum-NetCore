@@ -14,11 +14,13 @@ namespace DnlForums.Controllers
     {
         private readonly IForum forumService;
         private readonly IPost postService;
+        private readonly IUpload uploadService;
 
-        public ForumController(IForum forumService, IPost postService)
+        public ForumController(IForum forumService, IPost postService, IUpload uploadService)
         {
             this.forumService = forumService;
             this.postService = postService;
+            this.uploadService = uploadService;
         }
         public IActionResult Index()
         {
@@ -104,12 +106,12 @@ namespace DnlForums.Controllers
         [HttpPost]
         public async Task<IActionResult> AddForum(AddForumModel model)
         {
-            var imageDefaultUri = "/images";
+            var imageDefaultUri = "images/default.png";
 
             if (model.ImageUpload != null)
             {
-                //upload image file
-                
+                //upload forum image file
+                imageDefaultUri = this.uploadService.UploadImageForum(model.ImageUpload);
             }
 
             var forum = new Forum()

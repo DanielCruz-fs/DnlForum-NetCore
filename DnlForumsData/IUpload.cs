@@ -10,5 +10,6 @@ namespace DnlForumsData
     {
         string UploadImageProfle(IFormFile file);
         void DeleteImageFromFile(string ImageUrl);
+        string UploadImageForum(IFormFile file);
     }
 }

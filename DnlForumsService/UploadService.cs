@@ -28,6 +28,36 @@ namespace DnlForumsService
             }
         }
 
+        public string UploadImageForum(IFormFile file)
+        {
+            //Getting FileName
+            var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+
+            //Assigning Unique Filename (Guid)
+            var myUniqueFileName = Convert.ToString(Guid.NewGuid());
+
+            //Getting file Extension
+            var FileExtension = Path.GetExtension(fileName);
+
+            // concating  FileName + FileExtension
+            var newFileName = myUniqueFileName + FileExtension;
+
+            // Combines two strings into a path.
+            fileName = Path.Combine(this.environment.WebRootPath, @"images") + $@"\{newFileName}";
+
+            // if you want to store path of folder in database
+            //string PathDB = "Images/" + newFileName;
+
+            using (FileStream fs = System.IO.File.Create(fileName))
+            {
+                file.CopyTo(fs);
+                fs.Flush();
+            }
+
+            return "images/" + newFileName; 
+
+        }
+
         public string UploadImageProfle(IFormFile file)
         {
             //Getting FileName

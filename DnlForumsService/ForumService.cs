@@ -17,14 +17,17 @@ namespace DnlForumsService
             this.context = context;
         }
 
-        public Task Create(Forum forum)
+        public async Task Create(Forum forum)
         {
-            throw new NotImplementedException();
+            this.context.Add(forum);
+            await this.context.SaveChangesAsync();
         }
 
-        public Task Delete(int forumId)
+        public async Task Delete(int forumId)
         {
-            throw new NotImplementedException();
+            var forum = this.GetById(forumId);
+            this.context.Remove(forum);
+            await this.context.SaveChangesAsync();
         }
 
         public IEnumerable<Forum> GetAll()
