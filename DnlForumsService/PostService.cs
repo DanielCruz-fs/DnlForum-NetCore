@@ -24,6 +24,12 @@ namespace DnlForumsService
             await this.context.SaveChangesAsync();
         }
 
+        public async Task AddReply(PostReply reply)
+        {
+            await this.context.AddAsync(reply);
+            await this.context.SaveChangesAsync();
+        }
+
         public Task Delete(int id)
         {
             throw new NotImplementedException();
