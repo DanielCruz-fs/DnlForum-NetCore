@@ -62,5 +62,25 @@ namespace DnlForums.Controllers
 
             return RedirectToAction("Detail", new { id = userId });
         }
+
+        public IActionResult Index()
+        {
+            var profiles = this.userService.GetAll().OrderByDescending(user => user.Rating)
+                                     .Select(user => new ProfileModel()
+                                     {
+                                         Email = user.Email,
+                                         UserName = user.UserName,
+                                         ProfileImageUrl = user.ProfileUrl,
+                                         UserRating = user.Rating.ToString(),
+                                         MemberSince = user.MemberSince
+
+                                     });
+            var model = new ProfileListModel()
+            {
+                Profiles = profiles
+            };
+
+            return View(model);
+        }
     }
 }

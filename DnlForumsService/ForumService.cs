@@ -35,9 +35,16 @@ namespace DnlForumsService
             return this.context.Forums.Include(forum => forum.Posts);
         }
 
-        public IEnumerable<ApplicationUser> GetAllActiveUsers()
+        public IEnumerable<ApplicationUser> GetActiveUsers(int id)
         {
-            throw new NotImplementedException();
+            var forumPosts = this.GetById(id).Posts;
+            if (forumPosts != null || !forumPosts.Any())
+            {
+                var postUsers = forumPosts.Select(p => p.User);
+                var replyUsers = forumPosts.SelectMany(p => p.Replies).Select(r => r.User);
+                return postUsers.Union(replyUsers).Distinct();
+            }
+            return new List<ApplicationUser>();
         }
 
         public Forum GetById(int id)
@@ -57,6 +64,13 @@ namespace DnlForumsService
         public Task UpdateForumTitle(int forumId, string newTitle)
         {
             throw new NotImplementedException();
+        }
+
+        public bool HasRecentPosts(int id)
+        {
+            const int hoursAgo = 12;
+            var window = DateTime.Now.AddHours(-hoursAgo);
+            return this.GetById(id).Posts.Any(post => post.Created > window);
         }
     }
 }

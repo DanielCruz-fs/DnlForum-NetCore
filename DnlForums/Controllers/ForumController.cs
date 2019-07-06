@@ -28,12 +28,16 @@ namespace DnlForums.Controllers
             {
                 Id = forum.Id,
                 Title = forum.Title,
-                Description = forum.Description
+                Description = forum.Description,
+                NumberOfPosts = forum.Posts?.Count() ?? 0,
+                NumberOfUsers = this.forumService.GetActiveUsers(forum.Id).Count(),
+                ImageUrl = forum.ImageUrl,
+                HasRecentPosts = this.forumService.HasRecentPosts(forum.Id)
             });
 
             var model = new ForumIndexModel()
             {
-                ForumList = forums
+                ForumList = forums.OrderBy(f => f.Title)
             };
 
             return View(model);

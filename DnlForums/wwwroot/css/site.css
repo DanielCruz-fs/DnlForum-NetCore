@@ -388,3 +388,48 @@
     font-family: 'Roboto';
     font-size: 1.7em;
 }
+/*user index style*/
+.userProfilePic {
+    height: 140px;
+    width: 140px;
+    background-size: 100%;
+}
+/*reply content styling*/
+.replyContent {
+    display: table;
+    background-color: #fff;
+    border-bottom: 1px solid #aaa;
+    width: inherit;
+}
+
+#replyRow {
+    background-color: #3F51B5;
+    padding: 8px;
+}
+
+.replyContentContainer, .replyAuthorContainer {
+    display: table-cell;
+    padding: 12px;
+}
+
+.isAdmin {
+    display: inline-block;
+    padding: 3px;
+    background-color: #FFEB3B;
+    color: #000;
+    font-family: 'Roboto';
+}
+
+#replyDivider {
+    height: 2px;
+    margin-bottom: 12px;
+}
+/*hot tag*/
+.hasRecentPost {
+    padding: 2px;
+    background-color: #fe552f;
+    color: #fff;
+    text-align: center;
+    border-radius: 1px;
+    width: 30px;
+}
